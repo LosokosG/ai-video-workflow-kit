@@ -1,0 +1,19 @@
+# Project hooks for Codex. They mirror .claude/settings.json: the HyperFrames lint gate
+# (Workflow/Tools/hyperframes-lint/hf_lint_hook.py). Codex asks you to trust project hooks
+# once in the TUI before they run in interactive sessions.
+
+[[hooks.PostToolUse]]
+matcher = ".*"
+
+[[hooks.PostToolUse.hooks]]
+type = "command"
+command = "python3 Workflow/Tools/hyperframes-lint/hf_lint_hook.py post"
+timeout = 150
+
+[[hooks.Stop]]
+matcher = ".*"
+
+[[hooks.Stop.hooks]]
+type = "command"
+command = "python3 Workflow/Tools/hyperframes-lint/hf_lint_hook.py stop"
+timeout = 300

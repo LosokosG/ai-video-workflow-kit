@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 150,
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/Workflow/Tools/hyperframes-lint/hf_lint_hook.py\" post"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 300,
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/Workflow/Tools/hyperframes-lint/hf_lint_hook.py\" stop"
+          }
+        ]
+      }
+    ]
+  }
+}

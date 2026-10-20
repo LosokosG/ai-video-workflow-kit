@@ -1,0 +1,33 @@
+# Footage, generated media and working folders stay out of git
+Videos/*/01-Raw/
+Videos/*/02-Audio/
+Videos/*/03-Assets/
+Videos/*/05-Exports/
+Videos/*/07-Cache/
+Videos/*/08-Analysis/
+Videos/*/09-Footage-Library/
+Videos/*/11-Work/
+Videos/*/12-Archive/
+Videos/Shorts/*/raw/
+Videos/Shorts/*/exports/
+Videos/Shorts/*/scratch/
+Shared-Assets/Music/*
+Shared-Assets/Sound-Effects/*
+Shared-Assets/Stock-Footage/*
+Incoming/*
+# Other creators' example frames and clips collected by video-study: private reference only
+Workflow/Tactics/*/*/examples/
+Workflow/Studies/*/scratch/
+Workflow/Tools/*/cache/
+Workflow/Tools/*/ref-cache/
+*.mp4
+*.mov
+*.mkv
+*.wav
+*.exr
+*.7z
+node_modules/
+.venv/
+__pycache__/
+.claude/settings.local.json
+!.gitkeep
