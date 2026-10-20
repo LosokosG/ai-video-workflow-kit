@@ -6,7 +6,7 @@
 
 If `Workflow/.setup-done` doesn't exist, this workspace hasn't been set up yet: follow `docs/SETUP.md` (install requirements, interview the user, fill in `CHANNEL.md` and `STYLE.md`, create `Workflow/.setup-done`). Don't start video work before that. If `Workflow/CHANNEL.md` still says `(not filled in)` after setup, ask for the channel profile when the first video is planned (`video-brief`, `video-ideas`).
 
-Examples in the tactics and playbooks often use AI-topic videos for illustration (the workflow was built on an AI-focused channel). Adapt them to the user's niche; they are not the user's subject.
+Examples in the skills and tactics often use AI-topic videos for illustration (the workflow was built while editing AI and software videos). Adapt them to the user's niche; they are not the user's subject.
 
 ## Start here
 

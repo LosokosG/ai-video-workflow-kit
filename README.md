@@ -2,7 +2,7 @@
 
 A workspace that turns an AI coding agent (Claude Code, Codex, or any agent that reads `AGENTS.md`) into a YouTube editor's assistant: planning, retention review against measurements, packaging, and close-out, without the agent forgetting the channel's rules between sessions.
 
-I built this workflow in September and October 2026 for my own channel; this is the shareable version, with course-derived material and third-party skills removed.
+I built this workflow in September and October 2026 to edit my own recordings with an AI agent; the first video made with it was a four-minute product walkthrough. This is the shareable version, with course-derived material and third-party skills removed.
 
 ## The problem
 
@@ -12,27 +12,27 @@ Editing with an agent works for one session and then falls apart. The agent forg
 
 The workspace (`workspace/`) is a folder you open your agent in:
 
-- **`AGENTS.md`** is the standing instruction: where things live, what the agent may and may not delete, quality defaults, the order of the stages.
-- **One skill per stage** in `.agents/skills/`: `video-ideas` → `video-brief` → `video-intro` → `youtube-editing-workflow` → `retention-review` → `video-packaging` → `video-closeout` → `video-performance`, a short-form chain (`short-plan` → `short-edit` → `short-publish`), plus `video-study`, `presenter-finishing` and `video-lessons`. The agent loads only the skill for the job at hand.
-- **Deterministic tools the skills call** (`workspace/Workflow/Tools/`, Python, mostly stdlib):
+- `AGENTS.md` is the standing instruction: where things live, what the agent may and may not delete, quality defaults, the order of the stages.
+- There is one skill per stage in `.agents/skills/`: `video-ideas` → `video-brief` → `video-intro` → `youtube-editing-workflow` → `retention-review` → `video-packaging` → `video-closeout` → `video-performance`, a short-form chain (`short-plan` → `short-edit` → `short-publish`), plus `video-study`, `presenter-finishing` and `video-lessons`. The agent loads only the skill for the job at hand.
+- The skills call deterministic tools in `workspace/Workflow/Tools/` (Python, mostly stdlib):
   - `study/study.py` measures a video: hard cuts, new-element onsets, still stretches, loudness, pauses and speech rate, local transcription with word times, contact sheets stamped with source time. `video-intro` and `retention-review` use it to check a hook or a cut against numbers instead of impressions.
   - `ideas/outliers.py` scores videos by views ÷ their channel's median from public `yt-dlp` listings (no login), to find ideas that outperformed.
   - `packaging/feedcheck.py` puts a thumbnail candidate into a mock YouTube feed among current niche thumbnails, in greyscale and at small sizes.
   - `hyperframes-lint/hf_lint_hook.py` runs as a Claude Code / Codex hook after every edit and before the turn ends, and blocks the agent while a HyperFrames project has lint errors.
   - `tactics/` searches and indexes the tactics library; `closeout/archive_raw.py` packs raw footage into hash-verified 7-Zip archives; `setup/` checks the machine and links the skills.
-- **A learning loop:** `video-lessons` drafts rules from what happened in a session (with the evidence inline) into `Workflow/LESSONS.md`; the user confirms the scope; the next session reads the headings first. Preferences go to `STYLE.md`, one-video facts to that video's `RECORD.md`.
+- `video-lessons` runs a learning loop: it drafts rules from what happened in a session (with the evidence inline) into `Workflow/LESSONS.md`; the user confirms the scope; the next session reads the headings first. Preferences go to `STYLE.md`, one-video facts to that video's `RECORD.md`.
 
 ## Design decisions
 
-- **Skills per stage instead of one giant prompt.** Each stage loads a short, specific instruction and the files it needs; nothing else competes for the agent's attention.
-- **Deterministic tools for anything measurable.** Still stretches, first-word time, loudness and outlier scores come from scripts with documented thresholds and caveats; the agent interprets, it doesn't estimate.
-- **A lint hook that fails closed, with an explicit accept-list.** Errors always block (exit 2 feeds them back to the agent). A deliberate warning can be accepted only by a line in `<project>/.hyperframes-lint-accept` with a reason, and the agent must tell the user. A broken lint run never blocks editing, and the stop hook can't loop.
-- **Works with Claude Code and Codex.** Skills live once in `.agents/skills/`; `link_skills.py` exposes them to Claude Code. Hooks are wired in both `.claude/settings.json` and `.codex/config.toml`.
-- **Nothing is ever permanently deleted.** Removals go to the OS trash, with the exact list shown to the user first.
+- Each stage loads a short, specific instruction and the files it needs; nothing else competes for the agent's attention.
+- Anything measurable is measured by a script. Still stretches, first-word time, loudness and outlier scores come from scripts with documented thresholds and caveats; the agent interprets, it doesn't estimate.
+- The lint hook fails closed. Errors always block (exit 2 feeds them back to the agent). A deliberate warning can be accepted only by a line in `<project>/.hyperframes-lint-accept` with a reason, and the agent must tell the user. A broken lint run never blocks editing, and the stop hook can't loop.
+- It works with both Claude Code and Codex. Skills live once in `.agents/skills/`; `link_skills.py` exposes them to Claude Code. Hooks are wired in both `.claude/settings.json` and `.codex/config.toml`.
+- Nothing is deleted permanently. Removals go to the OS trash, with the exact list shown to the user first.
 
-## Honest limits
+## Limits
 
-- It was built around my own channel's workflow (an AI-topic channel, long-form videos with green-screen presenter footage) and tested on Linux only. Defaults about taste and hardware are labelled as starter defaults.
+- It was built around my own setup (long-form videos with green-screen presenter footage and screen recordings) and has only been used on Linux. Defaults about taste and hardware are labelled as starter defaults.
 - Motion graphics and rendering depend on [HyperFrames](https://github.com/heygen-com/hyperframes), an external project the setup installs from upstream (`npx skills add heygen-com/hyperframes`). It is not vendored here.
 - Not included: my green-screen presenter pipeline (keying scripts and playbook that depend on code and settings I haven't published), the short-form and business playbooks and the tactic cards distilled from a paid course and from other creators' videos, and an adapted third-party overlay skill. The tactics library ships with six example cards written from my own edits.
 - There are no claims here about channel performance. The kit records your numbers when you share them; it doesn't promise any.

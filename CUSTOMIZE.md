@@ -9,7 +9,7 @@ The kit is a set of plain text files. Your agent can change any of them for you;
 | `Workflow/STYLE.md` | rows marked *starter default*: pacing, "videos shouldn't all look the same", subtitles, transitions. Replace with your own taste. |
 | `Workflow/LESSONS.md` | every lesson is `starter default`. Keep, edit, or retire (`video-lessons` handles this). Numbers like music loudness are starting points from one mic and room. |
 | `AGENTS.md` → "Editorial and quality defaults" | the same taste defaults; `STYLE.md` overrides them. |
-| `Workflow/CHANNEL.md` | empty; filled from your answers. Examples in the skills often use AI-topic videos (the workflow was built on an AI channel); swap in your niche. |
+| `Workflow/CHANNEL.md` | empty; filled from your answers. Examples in the skills often use AI-topic videos (the workflow was built while editing AI and software videos); swap in your niche. |
 | `Workflow/Tactics/` | a few example cards from the original creator's edits, all `candidate`: you haven't tried them yet. They move to `used` / `proven` as your videos give evidence (`video-closeout`, `video-performance`). Add your own with `video-study` or by hand. |
 
 ## Setup-dependent parts
