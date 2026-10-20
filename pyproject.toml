@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-video-workflow-kit"
+version = "0.1.0"
+description = "A workspace of skills, tools and templates for editing YouTube videos with an AI coding agent."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Mateusz Macutkiewicz" }]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools]
+packages = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
